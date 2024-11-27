@@ -39,19 +39,12 @@
             cursor: pointer;
             text-align: center;
         }
-        .slideshow img, .slideshow .text-element {
+        .slideshow img {
             width: 100%;
             display: none;
         }
-        .slideshow img.active, .slideshow .text-element.active {
+        .slideshow img.active {
             display: block;
-        }
-        .text-element {
-            font-size: 16px;
-            font-family: "Helvetica", "Arial", sans-serif;
-            color: #fff;
-            line-height: 1.2;
-            letter-spacing: 0.3px;
         }
         @media (max-width: 768px) {
             .slideshow {
@@ -76,30 +69,29 @@
         <a href="tel:+351935075051" style="color: inherit; text-decoration: none;">+351 935 075 051</a>
     </div>
     <div class="slideshow" id="slideshow">
-        <img src="01.jpg" alt="Image 1">
+        <img src="01.jpg" alt="Image 1" class="active">
         <img src="02.jpg" alt="Image 2">
         <img src="03.jpg" alt="Image 3">
-        <div class="text-element">site em construção</div>
     </div>
     <script>
         const slideshow = document.getElementById('slideshow');
-        const elements = slideshow.querySelectorAll('img, .text-element');
+        const images = slideshow.querySelectorAll('img');
         let lastIndex = -1;
 
-        // Select a random element to display first
-        const randomIndex = Math.floor(Math.random() * elements.length);
-        elements[randomIndex].classList.add('active');
+        // Select a random image to display first
+        const randomIndex = Math.floor(Math.random() * images.length);
+        images[randomIndex].classList.add('active');
         lastIndex = randomIndex;
 
         slideshow.addEventListener('click', () => {
             let randomIndex;
             do {
-                randomIndex = Math.floor(Math.random() * elements.length);
+                randomIndex = Math.floor(Math.random() * images.length);
             } while (randomIndex === lastIndex);
             lastIndex = randomIndex;
 
             slideshow.querySelector('.active').classList.remove('active');
-            elements[randomIndex].classList.add('active');
+            images[randomIndex].classList.add('active');
         });
     </script>
 </body>
