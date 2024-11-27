@@ -18,7 +18,6 @@
             height: 100vh;
             flex-direction: column;
         }
-
         .header {
             position: fixed;
             top: 0;
@@ -28,34 +27,25 @@
             line-height: 1.2;
             letter-spacing: 0.3px;
         }
-
         .slideshow {
             width: 50%;
             max-width: 600px;
             cursor: pointer;
-            position: relative;
-            text-align: center;
         }
-
         .slideshow img {
             width: 100%;
-            height: auto;
             display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
         }
-
         .slideshow img.active {
             display: block;
         }
-
         @media (max-width: 768px) {
             .slideshow {
                 width: 80%;
             }
         }
     </style>
+    <!-- Redirect to HTTPS -->
     <script>
         if (location.protocol !== 'https:') {
             location.replace(`https:${location.href.substring(location.protocol.length)}`);
@@ -83,26 +73,24 @@
         <img src="03.jpg" alt="Image 3">
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const slideshow = document.getElementById('slideshow');
-            const images = slideshow.querySelectorAll('img');
-            let activeIndex = 0;
+        const slideshow = document.getElementById('slideshow');
+        const images = slideshow.querySelectorAll('img');
+        let lastIndex = -1;
 
-            // Initialize slideshow by showing the first image
-            images[activeIndex].classList.add('active');
+        // Randomly select an image to display first
+        const randomIndex = Math.floor(Math.random() * images.length);
+        images[randomIndex].classList.add('active');
+        lastIndex = randomIndex;
 
-            // Function to show the next image
-            function showNextImage() {
-                // Hide the current image
-                images[activeIndex].classList.remove('active');
-                // Update the index
-                activeIndex = (activeIndex + 1) % images.length;
-                // Show the next image
-                images[activeIndex].classList.add('active');
-            }
+        slideshow.addEventListener('click', () => {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * images.length);
+            } while (randomIndex === lastIndex);
+            lastIndex = randomIndex;
 
-            // Add click event to the slideshow
-            slideshow.addEventListener('click', showNextImage);
+            slideshow.querySelector('img.active').classList.remove('active');
+            images[randomIndex].classList.add('active');
         });
     </script>
 </body>
